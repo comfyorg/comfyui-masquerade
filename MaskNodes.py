@@ -430,7 +430,7 @@ class BlurNode:
             result = result[:, :, :, 0]
         return (result,)
 
-class ImageToMask:
+class ImageToMaskMasquerade:
     def __init__(self):
         pass
 
@@ -1327,7 +1327,7 @@ NODE_CLASS_MAPPINGS = {
     "Unary Mask Op": UnaryMaskOp,
     "Unary Image Op": UnaryImageOp,
     "Blur": BlurNode,
-    "Image To Mask": ImageToMask,
+    "Image To Mask Masquerade": ImageToMaskMasquerade,
     "Mix Images By Mask": MixByMask,
     "Mix Color By Mask": MixColorByMask,
     "Mask To Region": MaskToRegion,
