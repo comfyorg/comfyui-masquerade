@@ -877,7 +877,7 @@ class PasteByMask:
             if PB < B:
                 assert(B % PB == 0)
                 image_to_paste = image_to_paste.repeat(B // PB, 1, 1, 1)
-        mask = torch.nn.functional.interpolate(mask.unsqueeze(1), size=(H, W), mode='nearest')[:,0,:,:]
+        mask = torch.nn.functional.interpolate(mask.unsqueeze(1), size=(H, W), mode='nearest-exact')[:,0,:,:]
         MB, MH, MW = mask.shape
 
         # masks_to_boxes errors if the tensor is all zeros, so we'll add a single pixel and zero it out at the end
@@ -931,7 +931,7 @@ class PasteByMask:
                 # Resize the image we're pasting if needed
                 resized_image = image_to_paste[i].unsqueeze(0)
                 if SH != height or SW != width:
-                    resized_image = torch.nn.functional.interpolate(resized_image.permute(0, 3, 1, 2), size=(height,width), mode='nearest-exact').permute(0, 2, 3, 1)
+                    resized_image = torch.nn.functional.interpolate(resized_image.permute(0, 3, 1, 2), size=(height,width), mode='bilinear').permute(0, 2, 3, 1)
 
                 pasting = torch.ones([H, W, C])
                 ymid = float(mid_y[i].item())
