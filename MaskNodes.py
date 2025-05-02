@@ -750,10 +750,7 @@ class CutByMask:
         if force_resize_height > 0:
             use_height = force_resize_height
 
-        alpha_mask = torch.ones((B, H, W, 4))
-        alpha_mask[:,:,:,3] = mask
-
-        image = image * alpha_mask
+        image[..., 3] *= mask 
 
         result = torch.zeros((B, use_height, use_width, 4))
         for i in range(0, B):
